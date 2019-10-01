@@ -6,14 +6,22 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "konva": "^4.0.12",
     "next": "^9.0.7",
     "react": "^16.10.1",
-    "react-dom": "^16.10.1"
+    "react-dom": "^16.10.1",
+    "react-konva": "^16.10.1-0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0"
   }
 }
