@@ -1,4 +1,4 @@
-import { Application } from "../Application";
+import Application from "../Application";
 
 describe("Application", () => {
   it("should be able to be constructed with id and name", () => {

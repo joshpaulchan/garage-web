@@ -1,4 +1,4 @@
-export class Application {
+export default class Application {
   id = null;
   name = null;
   constructor({ id, name }) {
