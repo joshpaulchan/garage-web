@@ -20,20 +20,18 @@ export const ApplicationNode = ({ name, x, y }) => {
   );
 };
 
-const nextPosition = (lastPosition, step, scale, numberOfItems) => {
+const nextPosition = (origin, lastPosition, step, scale, numberOfItems) => {
+  const radian = (step / numberOfItems) * Math.PI * 2;
   return {
-    x: lastPosition.x + Math.cos((step / numberOfItems) * Math.PI * 2) * scale,
-    y: lastPosition.y + Math.sin((step / numberOfItems) * Math.PI * 2) * scale
+    x: origin.x + Math.cos(radian) * scale,
+    y: origin.y + Math.sin(radian) * scale
   };
 };
 
-const layoutInCircle = items => {
+const layoutInCircle = (origin, items) => {
   const stepSize = 1;
   const startingStep = 0;
-  const startingPosition = {
-    x: 800,
-    y: 200
-  };
+  const startingPosition = origin;
 
   const scale = 250;
   const numberOfItems = items.length;
@@ -41,6 +39,7 @@ const layoutInCircle = items => {
   return items.reduce(
     (current, item) => {
       const position = nextPosition(
+        origin,
         current.position,
         current.step,
         scale,
@@ -62,15 +61,17 @@ const layoutInCircle = items => {
 };
 
 // TODO: layout algorithm to make application nodes space out from each other properly
-const Layouter = ({ items }) => {
-  return layoutInCircle(items).items;
+const Layouter = ({ items, origin }) => {
+  return layoutInCircle(origin, items).items;
 };
 
-export const ClusterMap = ({ applications }) => {
+export const ClusterMap = ({ applications, width, height }) => {
+  const origin = { x: width / 2, y: height / 2 };
   return (
-    <Stage width={1900} height={1440}>
+    <Stage width={width} height={height}>
       <Layer>
         <Layouter
+          origin={origin}
           items={applications.map(app => ({ x, y }) => (
             <ApplicationNode key={app.id} x={x} y={y} name={app.name} />
           ))}
