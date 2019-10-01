@@ -1,7 +1,23 @@
-const Index = () => (
-    <div>
-        <p> Hello Next.js </p>
-    </div>
-);
+import { useState, useEffect } from "react";
+
+import GetApplicationsInClusterUseCase from "../src/use-cases/get-applications-in-cluster";
+import ApplicationClient from "../src/interactors/application-client";
+import { ClusterMap } from "../src/components/cluster-map";
+
+const applicationClient = new ApplicationClient();
+const getApplicationsInClusterUseCase = new GetApplicationsInClusterUseCase({
+  applicationClient
+});
+
+const CLUSTER_ID = "shootsnleaders";
+
+const Index = () => {
+  const [applications, setApplications] = useState([]);
+  useEffect(() => {
+    getApplicationsInClusterUseCase.execute(CLUSTER_ID).then(setApplications);
+  }, [setApplications]);
+
+  return <ClusterMap applications={applications} />;
+};
 
 export default Index;
