@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import GetApplicationsInClusterUseCase from "../src/use-cases/get-applications-in-cluster";
 import ApplicationClient from "../src/interactors/application-client";
 import { ClusterMap } from "../src/components/cluster-map";
+import useWindowDimensions from "../src/components/use-window-dimensions";
 
 const applicationClient = new ApplicationClient();
 const getApplicationsInClusterUseCase = new GetApplicationsInClusterUseCase({
@@ -13,11 +14,15 @@ const CLUSTER_ID = "shootsnleaders";
 
 const Index = () => {
   const [applications, setApplications] = useState([]);
+  const { height, width } = useWindowDimensions();
+
   useEffect(() => {
     getApplicationsInClusterUseCase.execute(CLUSTER_ID).then(setApplications);
   }, [setApplications]);
 
-  return <ClusterMap applications={applications} />;
+  return (
+    <ClusterMap applications={applications} height={height} width={width} />
+  );
 };
 
 export default Index;

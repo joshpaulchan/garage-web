@@ -66,9 +66,9 @@ const Layouter = ({ items }) => {
   return layoutInCircle(items).items;
 };
 
-export const ClusterMap = ({ applications }) => {
+export const ClusterMap = ({ applications, width, height }) => {
   return (
-    <Stage width={1900} height={1440}>
+    <Stage width={width} height={height}>
       <Layer>
         <Layouter
           items={applications.map(app => ({ x, y }) => (
