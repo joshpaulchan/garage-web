@@ -1,10 +1,22 @@
 import { Stage, Layer, Circle, Text } from "react-konva";
+import Konva from "konva";
 
-export const ApplicationNode = ({ id, name, x, y }) => {
+export const ApplicationNode = ({ name, x, y }) => {
+  const color = Konva.Util.getRandomColor();
+  const borderColor = "#333";
+  const strokeWidth = 4;
   return (
-    <Circle radius={40} fill="red" x={x} y={y}>
-      {/* <Text text={`${id}-${name}`} /> */}
-    </Circle>
+    <>
+      <Circle
+        radius={40}
+        fill={color}
+        stroke={borderColor}
+        strokeWidth={strokeWidth}
+        x={x}
+        y={y}
+      ></Circle>
+      <Text text={name} x={x} y={y} />
+    </>
   );
 };
 
@@ -60,7 +72,7 @@ export const ClusterMap = ({ applications }) => {
       <Layer>
         <Layouter
           items={applications.map(app => ({ x, y }) => (
-            <ApplicationNode key={app.id} x={x} y={y} />
+            <ApplicationNode key={app.id} x={x} y={y} name={app.name} />
           ))}
         />
       </Layer>
