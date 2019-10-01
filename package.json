@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@blueprintjs/core": "^3.18.1",
     "konva": "^4.0.12",
     "next": "^9.0.7",
     "react": "^16.10.1",
