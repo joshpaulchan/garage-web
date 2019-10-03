@@ -4,6 +4,9 @@ import GetApplicationsInClusterUseCase from "../src/use-cases/get-applications-i
 import ApplicationClient from "../src/interactors/application-client";
 import { ApplicationMap } from "../src/components/application-map";
 
+import "normalize.css";
+import "@blueprintjs/core/lib/css/blueprint.css";
+
 const applicationClient = new ApplicationClient();
 const getApplicationsInClusterUseCase = new GetApplicationsInClusterUseCase({
   applicationClient
