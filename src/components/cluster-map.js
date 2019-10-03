@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Stage, Layer, Circle, Text } from "react-konva";
 import Konva from "konva";
 
@@ -7,8 +8,8 @@ const NODE_SIZE = 40;
 
 const noop = evt => {};
 
-export const ApplicationNode = ({ name, x, y, onClick }) => {
-  const color = Konva.Util.getRandomColor();
+export const ApplicationNode = ({ name, onClick, x, y }) => {
+  const color = useMemo(Konva.Util.getRandomColor, [name]);
   const borderColor = "#333";
   const strokeWidth = 4;
   const itemSize = NODE_SIZE;
@@ -22,6 +23,7 @@ export const ApplicationNode = ({ name, x, y, onClick }) => {
         strokeWidth={strokeWidth}
         x={x}
         y={y}
+        onClick={() => onClick(name)}
       />
       <Text text={name} x={x} y={y} />
     </>
@@ -34,7 +36,12 @@ ApplicationNode.defaultProps = {
   onClick: noop
 };
 
-export const ClusterMap = ({ applications, width, height }) => {
+export const ApplicationMap = ({
+  applications,
+  width,
+  height,
+  selectApplication
+}) => {
   return (
     <Stage width={width} height={height}>
       <Layer>
@@ -42,7 +49,13 @@ export const ClusterMap = ({ applications, width, height }) => {
           height={height}
           width={width}
           items={applications.map(app => ({ x, y }) => (
-            <ApplicationNode key={app.id} x={x} y={y} name={app.name} />
+            <ApplicationNode
+              key={app.id}
+              name={app.name}
+              onClick={selectApplication}
+              x={x}
+              y={y}
+            />
           ))}
         />
       </Layer>
