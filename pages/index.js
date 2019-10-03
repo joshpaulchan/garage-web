@@ -17,7 +17,9 @@ const Index = () => {
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
-    getApplicationsInClusterUseCase.execute(CLUSTER_ID).then(setApplications);
+    getApplicationsInClusterUseCase
+      .execute({ clusterId: CLUSTER_ID })
+      .then(setApplications);
   }, [setApplications]);
 
   return (
