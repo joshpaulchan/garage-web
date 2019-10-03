@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 
 import GetApplicationsInClusterUseCase from "../src/use-cases/get-applications-in-cluster";
-import ApplicationClient from "../src/interactors/application-client";
+import { DumbApplicationClient } from "../src/interactors/application-client";
 import { ApplicationMap } from "../src/components/application-map";
 import { ApplicationDetails } from "../src/components/application-details";
 
 import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
 
-const API_BASE_URL = "http://localhost:8000";
-const applicationClient = new ApplicationClient(API_BASE_URL);
+const applicationClient = new DumbApplicationClient();
 const getApplicationsInClusterUseCase = new GetApplicationsInClusterUseCase({
   applicationClient
 });
