@@ -114,7 +114,7 @@ const layoutInGrid = (height, width, items) => {
 
 // TODO: layout algorithm to make application nodes space out from each other properly
 const Layouter = ({ items, height, width }) => {
-  return layoutInCircle(height, width, items).items;
+  return layoutInGrid(height, width, items).items;
 };
 
 export const ClusterMap = ({ applications, width, height }) => {
