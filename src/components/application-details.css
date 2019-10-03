@@ -1,6 +1,6 @@
 .application-details-container {
-    position: absolute;
+    position: relative;
     top: 1rem;
-    right: 1rem;
-    max-width: 500px;
+    left: 1rem;
+    max-width: 300px;
 }

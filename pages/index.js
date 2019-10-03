@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { Overlay } from "@blueprintjs/core";
 
 import GetApplicationsInClusterUseCase from "../src/use-cases/get-applications-in-cluster";
 import ApplicationClient from "../src/interactors/application-client";
 import { ApplicationMap } from "../src/components/application-map";
+import { ApplicationDetails } from "../src/components/application-details";
 
 import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
@@ -16,9 +18,8 @@ const CLUSTER_ID = "shootsnleaders";
 
 const Index = () => {
   const [applications, setApplications] = useState([]);
-  const [selectedApplications, setSelectedApplications] = useState([]);
-  const selectApplication = app =>
-    setSelectedApplications([...selectedApplications, app]);
+  const [selectedApplication, selectApplication] = useState(null);
+  const deselectApplication = () => selectApplication(null);
 
   useEffect(() => {
     getApplicationsInClusterUseCase
@@ -32,6 +33,13 @@ const Index = () => {
         applications={applications}
         selectApplication={selectApplication}
       />
+      <Overlay
+        isOpen={selectedApplication != null}
+        hasBackdrop={false}
+        onClose={deselectApplication}
+      >
+        <ApplicationDetails application={selectApplication} />
+      </Overlay>
     </>
   );
 };
