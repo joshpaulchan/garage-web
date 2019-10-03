@@ -13,7 +13,9 @@ const CLUSTER_ID = "shootsnleaders";
 
 const Index = () => {
   const [applications, setApplications] = useState([]);
-  const { height, width } = useWindowDimensions();
+  const [selectedApplications, setSelectedApplications] = useState([]);
+  const selectApplication = app =>
+    setSelectedApplications([...selectedApplications, app]);
 
   useEffect(() => {
     getApplicationsInClusterUseCase
