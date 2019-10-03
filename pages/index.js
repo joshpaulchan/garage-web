@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Overlay } from "@blueprintjs/core";
 
 import GetApplicationsInClusterUseCase from "../src/use-cases/get-applications-in-cluster";
 import ApplicationClient from "../src/interactors/application-client";
@@ -34,13 +33,11 @@ const Index = () => {
         applications={applications}
         selectApplication={selectApplication}
       />
-      <Overlay
-        isOpen={selectedApplication != null}
-        hasBackdrop={false}
-        onClose={deselectApplication}
-      >
-        <ApplicationDetails application={selectApplication} />
-      </Overlay>
+      <div className="application-details-container">
+        {selectedApplication && (
+          <ApplicationDetails application={selectedApplication} />
+        )}
+      </div>
     </>
   );
 };
