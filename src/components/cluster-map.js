@@ -64,6 +64,54 @@ const layoutInCircle = (height, width, items) => {
   );
 };
 
+const layoutInGrid = (height, width, items) => {
+  const bufferSize = Math.max(75, NODE_SIZE / 4);
+  const itemSize = NODE_SIZE + bufferSize;
+
+  const horizontalPadding = 200;
+  const verticalPading = 200;
+  const startingPosition = { x: horizontalPadding, y: verticalPading };
+
+  const totalPadding = 2 * horizontalPadding;
+  const maxNumberOfItemsInRow = Math.floor(
+    (width - startingPosition.x - totalPadding) / itemSize
+  );
+
+  const startingItemsInRow = 0;
+  return items.reduce(
+    (current, item) => {
+      const lastPosition = current.position;
+      let itemsInCurrentRow = current.itemsInCurrentRow;
+      let position;
+      if (itemsInCurrentRow > maxNumberOfItemsInRow) {
+        position = {
+          x: startingPosition.x,
+          y: lastPosition.y + itemSize
+        };
+        itemsInCurrentRow = 0;
+      } else {
+        position = {
+          x: lastPosition.x + itemSize,
+          y: lastPosition.y
+        };
+        itemsInCurrentRow += 1;
+      }
+
+      return {
+        lastPosition,
+        position,
+        itemsInCurrentRow,
+        items: [current.items, item(position)]
+      };
+    },
+    {
+      position: startingPosition,
+      itemsInCurrentRow: startingItemsInRow,
+      items: []
+    }
+  );
+};
+
 // TODO: layout algorithm to make application nodes space out from each other properly
 const Layouter = ({ items, height, width }) => {
   return layoutInCircle(height, width, items).items;
