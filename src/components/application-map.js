@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Stage, Layer, Circle, Text } from "react-konva";
 import Konva from "konva";
 
+import useWindowDimensions from "./use-window-dimensions";
 import Layouter from "./layouter";
 
 const NODE_SIZE = 40;
@@ -36,12 +37,9 @@ ApplicationNode.defaultProps = {
   onClick: noop
 };
 
-export const ApplicationMap = ({
-  applications,
-  width,
-  height,
-  selectApplication
-}) => {
+export const ApplicationMap = ({ applications, selectApplication }) => {
+  const { height, width } = useWindowDimensions();
+
   return (
     <Stage width={width} height={height}>
       <Layer>
