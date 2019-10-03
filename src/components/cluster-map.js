@@ -3,7 +3,9 @@ import Konva from "konva";
 
 const NODE_SIZE = 40;
 
-export const ApplicationNode = ({ name, x, y }) => {
+const noop = evt => {};
+
+export const ApplicationNode = ({ name, x, y, onClick }) => {
   const color = Konva.Util.getRandomColor();
   const borderColor = "#333";
   const strokeWidth = 4;
@@ -22,6 +24,12 @@ export const ApplicationNode = ({ name, x, y }) => {
       <Text text={name} x={x} y={y} />
     </>
   );
+};
+
+ApplicationNode.defaultProps = {
+  x: 0,
+  y: 0,
+  onClick: noop
 };
 
 const nextCircularPosition = (origin, step, scale, numberOfItems) => {
