@@ -1,26 +1,30 @@
 import { Stage, Layer, Circle, Text } from "react-konva";
 import Konva from "konva";
 
+const NODE_SIZE = 40;
+
 export const ApplicationNode = ({ name, x, y }) => {
   const color = Konva.Util.getRandomColor();
   const borderColor = "#333";
   const strokeWidth = 4;
+  const itemSize = NODE_SIZE;
+
   return (
     <>
       <Circle
-        radius={40}
+        radius={itemSize}
         fill={color}
         stroke={borderColor}
         strokeWidth={strokeWidth}
         x={x}
         y={y}
-      ></Circle>
+      />
       <Text text={name} x={x} y={y} />
     </>
   );
 };
 
-const nextPosition = (origin, lastPosition, step, scale, numberOfItems) => {
+const nextCircularPosition = (origin, step, scale, numberOfItems) => {
   const radian = (step / numberOfItems) * Math.PI * 2;
   return {
     x: origin.x + Math.cos(radian) * scale,
@@ -28,7 +32,8 @@ const nextPosition = (origin, lastPosition, step, scale, numberOfItems) => {
   };
 };
 
-const layoutInCircle = (origin, items) => {
+const layoutInCircle = (height, width, items) => {
+  const origin = { x: width / 2, y: height / 2 };
   const stepSize = 1;
   const startingStep = 0;
   const startingPosition = origin;
@@ -38,9 +43,8 @@ const layoutInCircle = (origin, items) => {
 
   return items.reduce(
     (current, item) => {
-      const position = nextPosition(
+      const position = nextCircularPosition(
         origin,
-        current.position,
         current.step,
         scale,
         numberOfItems
@@ -61,17 +65,17 @@ const layoutInCircle = (origin, items) => {
 };
 
 // TODO: layout algorithm to make application nodes space out from each other properly
-const Layouter = ({ items, origin }) => {
-  return layoutInCircle(origin, items).items;
+const Layouter = ({ items, height, width }) => {
+  return layoutInCircle(height, width, items).items;
 };
 
 export const ClusterMap = ({ applications, width, height }) => {
-  const origin = { x: width / 2, y: height / 2 };
   return (
     <Stage width={width} height={height}>
       <Layer>
         <Layouter
-          origin={origin}
+          height={height}
+          width={width}
           items={applications.map(app => ({ x, y }) => (
             <ApplicationNode key={app.id} x={x} y={y} name={app.name} />
           ))}
