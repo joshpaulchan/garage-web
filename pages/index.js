@@ -9,12 +9,13 @@ import { ApplicationDetails } from "../src/components/application-details";
 import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
 
-const applicationClient = new ApplicationClient();
+const API_BASE_URL = "http://localhost:8000";
+const applicationClient = new ApplicationClient(API_BASE_URL);
 const getApplicationsInClusterUseCase = new GetApplicationsInClusterUseCase({
   applicationClient
 });
 
-const CLUSTER_ID = "shootsnleaders";
+const CLUSTER_ID = "devstack-shootsnleaders";
 
 const Index = () => {
   const [applications, setApplications] = useState([]);
