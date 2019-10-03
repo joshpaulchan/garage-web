@@ -45,7 +45,7 @@ const layoutInGrid = (height, width, items) => {
   const itemSize = NODE_SIZE + bufferSize;
 
   const horizontalPadding = 200;
-  const verticalPading = 200;
+  const verticalPading = 100;
   const startingPosition = { x: horizontalPadding, y: verticalPading };
 
   const totalPadding = 2 * horizontalPadding;
