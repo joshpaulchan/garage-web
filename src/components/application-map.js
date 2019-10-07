@@ -9,8 +9,8 @@ const NODE_SIZE = 40;
 
 const noop = evt => {};
 
-export const ApplicationNode = ({ name, onClick, x, y }) => {
-  const color = useMemo(Konva.Util.getRandomColor, [name]);
+export const ApplicationNode = ({ app, onClick, x, y }) => {
+  const color = useMemo(Konva.Util.getRandomColor, [app]);
   const borderColor = "#333";
   const strokeWidth = 4;
   const itemSize = NODE_SIZE;
@@ -24,9 +24,9 @@ export const ApplicationNode = ({ name, onClick, x, y }) => {
         strokeWidth={strokeWidth}
         x={x}
         y={y}
-        onClick={() => onClick(name)}
+        onClick={() => onClick(app)}
       />
-      <Text text={name} x={x} y={y} />
+      <Text text={app.name} x={x} y={y} />
     </>
   );
 };
@@ -49,7 +49,7 @@ export const ApplicationMap = ({ applications, selectApplication }) => {
           items={applications.map(app => ({ x, y }) => (
             <ApplicationNode
               key={app.id}
-              name={app.name}
+              app={app}
               onClick={selectApplication}
               x={x}
               y={y}

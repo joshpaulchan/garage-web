@@ -15,15 +15,16 @@ const getApplicationsInClusterUseCase = new GetApplicationsInClusterUseCase({
 
 const CLUSTER_ID = "devstack-shootsnleaders";
 
+const getApplications = clusterId =>
+  getApplicationsInClusterUseCase.execute({ clusterId });
+
 const Index = () => {
   const [applications, setApplications] = useState([]);
   const [selectedApplication, selectApplication] = useState(null);
   const deselectApplication = () => selectApplication(null);
 
   useEffect(() => {
-    getApplicationsInClusterUseCase
-      .execute({ clusterId: CLUSTER_ID })
-      .then(setApplications);
+    getApplications(CLUSTER_ID).then(setApplications);
   }, [setApplications]);
 
   return (
