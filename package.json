@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "konva": "^4.0.12",
-    "next": "^9.0.7",
+    "next": "^11.1.0",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-konva": "^16.10.1-0"
